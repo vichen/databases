@@ -15,19 +15,20 @@ describe('Persistent Node Chat Server', function() {
       database: 'chat'
     });
     dbConnection.connect();
-      var messages = 'messages;'; // TODO: fill this out
-       // var friends = 'friends';
-      var users = 'users';
-      var rooms = 'rooms';
+
+    var messages = 'messages'; // TODO: fill this out
+     // var friends = 'friends';
+    // var users = 'users';
+    // var rooms = 'rooms';
 
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
-    dbConnection.query('ALTER TABLE ' + messages + ' DROP FOREIGN KEY id_User;', done);
-    dbConnection.query('ALTER TABLE ' + messages + ' DROP FOREIGN KEY id_Room;', done);
+    // dbConnection.query('ALTER TABLE ' + messages + ' DROP FOREIGN KEY id_User;', done);
+    // dbConnection.query('ALTER TABLE ' + messages + ' DROP FOREIGN KEY id_Room;', done);
     dbConnection.query('truncate ' + messages, done);
     // dbConnection.query('truncate ' + friends, done);
-    dbConnection.query('truncate ' + users, done);
-    dbConnection.query('truncate ' + rooms, done);
+    // dbConnection.query('truncate ' + users, done);
+    // dbConnection.query('truncate ' + rooms, done);
   });
 
   afterEach(function() {
