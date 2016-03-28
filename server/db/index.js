@@ -8,11 +8,11 @@ var mysql = require('mysql');
 
 
 var connection = mysql.createConnection({
-  host: 'localhost:3000',
   user: 'root',
-  password: '1'
+  password: '',
+  database: 'chat'
 });
 
 connection.connect();   // use connection to query DB
 
-exports.connection = connection;
+module.exports = connection;

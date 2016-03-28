@@ -1,39 +1,46 @@
 var models = require('../models');
-var Promise = require('bluebird');
 
 
 module.exports = {
   messages: {
-    get: function (req, res) {
-        // somehow input rows and fields(cols) into appropriate view 
-        return models.messages.get()
-          .then(function(result) {
-            response.end(result);
-          })
-          .catch(function(error) {
-            response.end(error);
-          });
+    get: function (request, response) {
+      models.messages.get(function(error, results) {
+        if (error) {
+          console.log(error);
+        }
+        response.json(results);
+      });
     },
-       // a function which handles a get request for all messages
-    post: function (req, res) {} // a function which handles posting a message to the database
-  
+
+    post: function (request, response) {
+      var params = [request.body.message, request.body.username, request.body.roomname];
+      models.messages.post(params, function(error, results) {
+        if (error) {
+          console.log(error);
+        }
+        response.sendStatus(201);
+      });
+    }
   },
 
   users: {
-    // Ditto as above
-    get: function (req, res) {},
-    post: function (req, res) {
-      // check what's in json, 
-      // if just username, then ask model to insert into db
-      var username = '';
-      req.on('data', function(chunk) {
-        var info = JSON.parse(chunk.toString('utf8'));
-        username += info;
+    get: function (request, response) {
+      models.users.get(function(error, results) {
+        if (error) {
+          console.log(error);
+        }
+        response.json(results);
       });
-      req.on('end', function() {
-        models.users.post(username);
+    },
+
+    post: function (request, response) {
+      var params = [request.body.username];
+      models.users.post(params, function(error, results) {
+        if (error) {
+          console.log(error);
+        }
+        response.sendStatus(201);
       });
-      res.end();
     }
   }
 };
